@@ -6,8 +6,8 @@ function Task({ task, setCurrentId }) {
   const dispatch = useDispatch();
 
   return (
-    <div className="flex items-center justify-between border-b border-gray-300 py-2">
-      <div className="flex items-center gap-4">
+    <div className="flex items-center justify-between border-b border-gray-300 py-2 md:flex-row flex-col my-2">
+      <div className="flex items-center gap-4 sm:justify-between">
         <input
           onChange={() => dispatch(toggleCompleted({ id: task.id }))}
           type="checkbox"
@@ -46,19 +46,20 @@ function Task({ task, setCurrentId }) {
           />
           <p className="text-sm">{task.conditionText}</p>
         </div>
+        <span
+          className={`px-1 text-sm md:px-2 md:text-md py-1 rounded-md ${
+            task.priority === "high"
+              ? "bg-red-500 text-white"
+              : task.priority === "medium"
+              ? "bg-yellow-500 text-white"
+              : "bg-green-500 text-white"
+          }`}
+        >
+          {task.priority}
+        </span>
       </div>
-      <span
-        className={`px-2 py-1 rounded-md ${
-          task.priority === "high"
-            ? "bg-red-500 text-white"
-            : task.priority === "medium"
-            ? "bg-yellow-500 text-white"
-            : "bg-green-500 text-white"
-        }`}
-      >
-        {task.priority}
-      </span>
-      <div className="flex items-center gap-2">
+
+      <div className="flex gap-2 self-end md:self-center">
         <FaEdit
           className="text-2xl cursor-pointer"
           onClick={() => setCurrentId(task.id)}
